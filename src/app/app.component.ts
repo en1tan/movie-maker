@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MainService } from './main.service';
+import { MainService, IResponseData } from './main.service';
 
 export interface IMovieData {
   name: String;
@@ -22,12 +22,13 @@ export interface IMovieDetails {
 })
 export class AppComponent implements OnInit {
   constructor(private fb: FormBuilder, private service: MainService) { }
-  movieData: IMovieDetails;
+  response: IResponseData;
   movies: IMovieDetails[];
   newMovieForm: FormGroup;
   link = "";
   name = "";
   loggedIn: boolean = false;
+  isLoading: boolean;
 
   ngOnInit() {
     this.getAllMovies();
@@ -39,18 +40,20 @@ export class AppComponent implements OnInit {
   }
 
   getAllMovies() {
+    this.isLoading = !this.isLoading;
     this.service.getAllMovies().subscribe((res) => {
-      this.movies = res.data
+      this.movies = res.data;
+      this.isLoading = !this.isLoading;
     })
-
   }
 
   saveMovie(form: IMovieData) {
-    this.movieData = null;
+    this.isLoading = !this.isLoading;
     this.service.saveMovie(form).subscribe((res) => {
-      this.movieData = res.data
+      this.response = res;
       this.newMovieForm.reset();
       this.getAllMovies();
+      this.isLoading = !this.isLoading;
     })
   }
 

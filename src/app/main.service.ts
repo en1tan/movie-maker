@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 import { IMovieData, IMovieDetails } from '../app/app.component';
 
 
-interface IResponseData {
+export interface IResponseData {
   status: boolean;
   message: string;
   data: IMovieDetails

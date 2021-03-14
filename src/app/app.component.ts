@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   newMovieForm: FormGroup;
   link = "";
   name = "";
+  loggedIn: boolean = false;
 
   ngOnInit() {
     this.getAllMovies();
@@ -51,5 +52,9 @@ export class AppComponent implements OnInit {
       this.newMovieForm.reset();
       this.getAllMovies();
     })
+  }
+
+  toggleStatus() {
+    this.loggedIn = !this.loggedIn;
   }
 }

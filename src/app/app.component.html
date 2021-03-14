@@ -1,6 +1,6 @@
 <div class="text-center space-y-3 p-4">
     <h1 class="text-4xl font-extrabold">Movie Saver Bot</h1>
-    <div class="bg-white rounded-md shadow-lg w-1/2 mx-auto p-4 text-left">
+    <div class="bg-white rounded-md shadow-lg w-1/2 mx-auto p-4 text-left" *ngIf="loggedIn">
         <form [formGroup]="newMovieForm" (submit)="saveMovie(newMovieForm.value)" class="flex flex-col space-y-4 px-4">
             <h3 class="text-md">Movie Name</h3>
             <input type="text" formControlName="name" required class="shadow-lg focus:bg-gray-200 ring-2 focus:ring-green-400 rounded-md h-10 ring-green-300 focus:outline-none text-center bg-gray-100 focus:font-bold transition duration-500"/>
@@ -9,9 +9,8 @@
             <button [disabled]="newMovieForm.invalid" type="submit" class="bg-green-400 text-sm uppercase w-1/2 mx-auto rounded-md p-4 hover:bg-green-100 ring-0 hover:ring-2 hover:ring-purple-200 transition duration-500 transform hover:translate-x-1 focus:outline-none focus:ring-2 focus:ring-green-100 focus:ring-opacity-50">Save Movie</button>
         </form>
     </div>
-    <span *ngIf="movieData">{{movieData.title}}</span>
 
-    <h2 *ngIf="movies" class="text-xl font-bold uppercase">All Movies <span class="text-gray-400"><u>{{movies.length}}</u></span> </h2>
+    <h2 *ngIf="movies" class="text-xl font-bold uppercase">All Movies <span class="text-gray-400" (click)="toggleStatus()" role="button"><u>{{movies.length}}</u></span> </h2>
     <div class="grid grid-cols-4 grid-rows-3 gap-4">
         <div *ngFor="let movie of movies">
             <div class="group flex flex-col space-y-2 h-full shadow-xl p-1 transform transition duration-500 hover:bg-gray-400 rounded-md">
